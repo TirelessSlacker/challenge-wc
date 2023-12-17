@@ -7,11 +7,16 @@ import java.io.File;
 
 public class App {
 
-
     public static void main(String[] args) {
         try {
-            File file = new File(args[0]);
-            System.out.println(file.length());
+            if (args.length == 2) {
+
+                File file = new File(args[1]);
+                FileProcessor fileProcessor = new FileProcessor();
+                System.out.println(fileProcessor.processFile(args[0],file));
+            } else {
+                System.out.println("This program accepts exactly two inputs!");
+            }
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }

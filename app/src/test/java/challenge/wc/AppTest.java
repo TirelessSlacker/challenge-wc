@@ -10,7 +10,10 @@ import java.io.File;
 import static org.junit.Assert.*;
 
 public class AppTest {
-    public void appHasAGreeting() {
 
+    @Test
+    public void testTest() {
+        assertTrue(true);
     }
+
 }
