@@ -13,14 +13,15 @@ public class FileProcessorTest {
 
     private File testFile;
     private final String TEST_FILE_LENGTH = "342190";
-
     private final String TEST_FILE_LINE_COUNT = "7145";
+    private final String TEST_FILE_WORD_COUNT = "58164";
 
 
     @Before
     public void setup() {
         testFileProcessor = new FileProcessor();
         testFile = new File(getClass().getResource("/test.txt").getFile());
+        System.out.println(testFile.getAbsolutePath());
 
     }
 
@@ -32,7 +33,13 @@ public class FileProcessorTest {
 
     @Test
     public void lineCountTest() throws Exception {
-        String result = testFileProcessor.processFile("l",testFile);
+        String result = testFileProcessor.processFile("-l",testFile);
         assertEquals(TEST_FILE_LINE_COUNT,result);
+    }
+
+    @Test
+    public void wordCountTest() throws Exception {
+        String result = testFileProcessor.processFile("-w",testFile);
+        assertEquals(TEST_FILE_WORD_COUNT,result);
     }
 }

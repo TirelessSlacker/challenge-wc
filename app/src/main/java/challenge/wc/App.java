@@ -6,7 +6,9 @@ package challenge.wc;
 import java.io.File;
 
 public class App {
-
+    private static String errorMessage = "This application accepts exactly two parameters:\n" +
+            "1 - an option to determine the output\n " +
+            "2 - a file path";
     public static void main(String[] args) {
         try {
             if (args.length == 2) {
@@ -15,9 +17,10 @@ public class App {
                 FileProcessor fileProcessor = new FileProcessor();
                 System.out.println(fileProcessor.processFile(args[0],file));
             } else {
-                System.out.println("This program accepts exactly two inputs!");
+                System.out.println(errorMessage);
             }
         } catch (Exception e) {
+            System.out.println(errorMessage);
             System.err.println(e.getMessage());
         }
     }
