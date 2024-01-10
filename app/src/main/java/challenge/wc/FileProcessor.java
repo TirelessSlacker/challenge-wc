@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class FileProcessor {
 
@@ -39,10 +40,11 @@ public class FileProcessor {
 
     private Integer calculateWordCount(File file) throws Exception {
         BufferedReader reader = new BufferedReader(new FileReader(file));
-        return reader.lines()
-                .map(line -> line.split(" "))
-                .filter(line -> line.length != 0)
-                .map(line -> line.length)
-                .reduce(0,(a,b) -> a+b);
+        List<String> result = reader.lines()
+                .flatMap(line -> Stream.of(line.split("\\s+")))
+                .filter(word -> word.length() > 0)
+                .toList();
+        return result.size();
     }
+    //finish this
 }
