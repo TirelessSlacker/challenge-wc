@@ -15,7 +15,7 @@ public class FileProcessorTest {
     private final String TEST_FILE_LENGTH = "342190";
     private final String TEST_FILE_LINE_COUNT = "7145";
     private final String TEST_FILE_WORD_COUNT = "58164";
-
+    private final String TEST_FILE_CHARACTER_COUNT = "339292";
 
     @Before
     public void setup() {
@@ -41,5 +41,11 @@ public class FileProcessorTest {
     public void wordCountTest() throws Exception {
         String result = testFileProcessor.processFile("-w",testFile);
         assertEquals(TEST_FILE_WORD_COUNT,result);
+    }
+
+    @Test
+    public void characterCountTest() throws Exception {
+        String result = testFileProcessor.processFile("-m",testFile);
+        assertEquals(TEST_FILE_CHARACTER_COUNT,result);
     }
 }

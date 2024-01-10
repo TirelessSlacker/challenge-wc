@@ -7,12 +7,11 @@ import java.io.File;
 
 public class App {
     private static String errorMessage = "This application accepts exactly two parameters:\n" +
-            "1 - an option to determine the output\n " +
+            "1 - an option to determine the output type\n " +
             "2 - a file path";
     public static void main(String[] args) {
         try {
             if (args.length == 2) {
-
                 File file = new File(args[1]);
                 FileProcessor fileProcessor = new FileProcessor();
                 System.out.println(fileProcessor.processFile(args[0],file));

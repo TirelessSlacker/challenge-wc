@@ -3,21 +3,24 @@ package challenge.wc;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.nio.Buffer;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class FileProcessor {
 
-    public String processFile(String option, File file) throws Exception{
+    public String processFile(String option, File file) throws Exception {
         if (option.equals("-c")) {
             return String.valueOf(calculateFileLength(file));
         } else if (option.equals("-l")) {
             return String.valueOf(calculateLineCount(file));
         } else if (option.equals("-w")) {
             return String.valueOf(calculateWordCount(file));
+        } else if (option.equals("-m")) {
+            return String.valueOf(calculateCharacterCount(file));
         } else {
-            return "Option parameters accepted: -c,-l";
+            return "Option parameters accepted: -c,-l,-w,-m";
         }
     }
 
@@ -46,5 +49,16 @@ public class FileProcessor {
                 .toList();
         return result.size();
     }
-    //finish this
+
+    private Integer calculateCharacterCount(File file) throws Exception {
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        return reader.lines()
+                .flatMap(line -> Stream.of(line.split("\\s+")))
+                .filter(word -> word.length() > 0)
+                .flatMap(word -> Stream.of(word.toCharArray()))
+                .map(charArray -> charArray.length)
+                .reduce(0,(a,b) -> a+b);
+
+    }
 }
+
