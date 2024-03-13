@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.nio.Buffer;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -22,6 +23,13 @@ public class FileProcessor {
         } else {
             return "Option parameters accepted: -c,-l,-w,-m";
         }
+    }
+
+    public String processFile(File file) throws Exception {
+        return (calculateFileLength(file)) + " "
+                + (calculateLineCount(file)) + " "
+                + (calculateWordCount(file)) + " "
+                + file.getName();
     }
 
     private long calculateFileLength(File file) {
@@ -52,13 +60,13 @@ public class FileProcessor {
 
     private Integer calculateCharacterCount(File file) throws Exception {
         BufferedReader reader = new BufferedReader(new FileReader(file));
-        return reader.lines()
-                .flatMap(line -> Stream.of(line.split("\\s+")))
-                .filter(word -> word.length() > 0)
-                .flatMap(word -> Stream.of(word.toCharArray()))
-                .map(charArray -> charArray.length)
-                .reduce(0,(a,b) -> a+b);
+        Integer count = 0;
 
+        while (reader.read() >= 0) {
+            count++;
+        }
+        return count;
     }
+
 }
 

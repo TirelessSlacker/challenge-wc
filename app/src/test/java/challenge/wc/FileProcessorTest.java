@@ -48,4 +48,13 @@ public class FileProcessorTest {
         String result = testFileProcessor.processFile("-m",testFile);
         assertEquals(TEST_FILE_CHARACTER_COUNT,result);
     }
+
+    @Test
+    public void noArgFileInputTest() throws Exception {
+        String result = testFileProcessor.processFile(testFile);
+        assertEquals(TEST_FILE_LENGTH + " "
+            + TEST_FILE_LINE_COUNT + " "
+            + TEST_FILE_WORD_COUNT + " "
+            + testFile.getName(),result);
+    }
 }

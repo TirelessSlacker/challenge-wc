@@ -11,10 +11,14 @@ public class App {
             "2 - a file path";
     public static void main(String[] args) {
         try {
+            FileProcessor fileProcessor = new FileProcessor();
+            File file;
             if (args.length == 2) {
-                File file = new File(args[1]);
-                FileProcessor fileProcessor = new FileProcessor();
+                file = new File(args[1]);
                 System.out.println(fileProcessor.processFile(args[0],file));
+            } else if (args.length == 1) {
+                file  = new File(args[0]);
+                System.out.println(fileProcessor.processFile(file));
             } else {
                 System.out.println(errorMessage);
             }
