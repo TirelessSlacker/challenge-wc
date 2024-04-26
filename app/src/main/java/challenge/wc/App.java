@@ -19,15 +19,18 @@ public class App {
             File file = createInputFile(args);
 
             if (args.length == 0) {
+                //gets file from standard input
                 System.out.println(fileProcessor.processFileNameless(file));
             } else if (args.length == 1) {
                 if (args[0].length() > 2) {
+                    //gets file from arg 0
                     System.out.println(fileProcessor.processFile(file));
                 } else {
                     //gets file from standard input
                     System.out.println(fileProcessor.processFile(args[0],file));
                 }
             } else if (args.length == 2) {
+                //gets file from arg 1
                 System.out.println(fileProcessor.processFile(args[0],file));
             } else {
                 throw new Exception("Too many parameters!");
@@ -50,7 +53,11 @@ public class App {
             file = File.createTempFile("parsedInput",".txt");
             file.deleteOnExit();
             FileWriter writer = new FileWriter(file);
-            writer.write(reader.toString());
+            String text;
+            while (reader.ready()) {
+                text = reader.readLine();
+                writer.write(text + " \n");
+            }
             writer.close();
         } else if (args.length == 2) {
             file = new File(args[1]);
