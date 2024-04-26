@@ -26,10 +26,13 @@ public class FileProcessor {
     }
 
     public String processFile(File file) throws Exception {
+       return processFileNameless(file) + " " + file.getName();
+    }
+
+    public String processFileNameless(File file) throws Exception {
         return (calculateFileLength(file)) + " "
                 + (calculateLineCount(file)) + " "
-                + (calculateWordCount(file)) + " "
-                + file.getName();
+                + (calculateWordCount(file));
     }
 
     private long calculateFileLength(File file) {

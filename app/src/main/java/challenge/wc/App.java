@@ -3,28 +3,62 @@
  */
 package challenge.wc;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.InputStreamReader;
 
 public class App {
-    private static String errorMessage = "This application accepts exactly two parameters:\n" +
-            "1 - an option to determine the output type\n " +
-            "2 - a file path";
+    private static String errorMessage = "This application accepts up to two parameters:\n" +
+            "1 (optional) - an option to determine the output type\n " +
+            "2 (required) - a file path";
     public static void main(String[] args) {
         try {
+
             FileProcessor fileProcessor = new FileProcessor();
-            File file;
-            if (args.length == 2) {
-                file = new File(args[1]);
-                System.out.println(fileProcessor.processFile(args[0],file));
+            File file = createInputFile(args);
+
+            if (args.length == 0) {
+                System.out.println(fileProcessor.processFileNameless(file));
             } else if (args.length == 1) {
-                file  = new File(args[0]);
-                System.out.println(fileProcessor.processFile(file));
+                if (args[0].length() > 2) {
+                    System.out.println(fileProcessor.processFile(file));
+                } else {
+                    //gets file from standard input
+                    System.out.println(fileProcessor.processFile(args[0],file));
+                }
+            } else if (args.length == 2) {
+                System.out.println(fileProcessor.processFile(args[0],file));
             } else {
-                System.out.println(errorMessage);
+                throw new Exception("Too many parameters!");
             }
+
         } catch (Exception e) {
             System.out.println(errorMessage);
             System.err.println(e.getMessage());
         }
+
+
+    }
+
+    public static File createInputFile(String[] args)  throws Exception{
+        InputStreamReader stdInput = new InputStreamReader(System.in);
+        File file;
+
+        if (stdInput.ready()) {
+            BufferedReader reader = new BufferedReader(stdInput);
+            file = File.createTempFile("parsedInput",".txt");
+            file.deleteOnExit();
+            FileWriter writer = new FileWriter(file);
+            writer.write(reader.toString());
+            writer.close();
+        } else if (args.length == 2) {
+            file = new File(args[1]);
+        } else if (args.length == 1) {
+            file  = new File(args[0]);
+        } else {
+            throw new Exception("No valid input detected");
+        }
+        return file;
     }
 }
