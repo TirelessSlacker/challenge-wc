@@ -1,0 +1,1 @@
+This is my implementation of the WC command line application using the Java programming language. This is the first challenge in John Crickett's coding challenge list found here https://codingchallenges.fyi/challenges/challenge-wc
