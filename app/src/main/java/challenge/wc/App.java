@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
 public class App {
     private static String errorMessage = "This application accepts up to two parameters:\n" +
             "1 (optional) - an option to determine the output type\n " +
-            "2 (required) - a file path";
+            "2 (required) - a file path or cat'd out file via that standard input";
     public static void main(String[] args) {
         try {
 
